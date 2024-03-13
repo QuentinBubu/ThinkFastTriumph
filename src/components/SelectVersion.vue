@@ -1,8 +1,21 @@
 <template>
   <form action="">
-    <select name="version" id="version" v-model="selectedVersion" @change="onVersionSelect">
-      <option v-for="v in versions" :key="v">{{ v }}</option>
-    </select>
+    <fieldset>
+      <legend>Choisissez le patch</legend>
+      <select name="version" id="version" v-model="selectedVersion">
+        <option v-for="v in versions" :key="v">{{ v }}</option>
+      </select>
+    </fieldset>
+    <fieldset>
+      <legend>Sélectionnez votre set</legend>
+      <select name="set" id="set" v-model="selectedSet">
+        <option value="TFT11" disabled>TFT set 11</option>
+        <option value="TFT10" selected>TFT set 10</option>
+        <option value="TFT3">TFT set 3</option>
+        <option value="TFTTutorial">TFT Tutorial</option>
+      </select>
+    </fieldset>
+    <button @click="onVersionSelect">Démarrer</button>
   </form>
 </template>
 
@@ -13,6 +26,7 @@ export default defineComponent({
   data() {
     return {
       versions: [],
+      selectedSet: '',
       selectedVersion: ''
     };
   },
@@ -27,10 +41,8 @@ export default defineComponent({
       });
   },
   methods: {
-    onVersionSelect(event: Event) {
-      const target = event.target as HTMLSelectElement;
-      this.selectedVersion = target.value;
-      this.$router.push({ name: 'play', params: { version: this.selectedVersion } });
+    onVersionSelect() {
+      this.$router.push({ name: 'play', params: { version: this.selectedVersion, set: this.selectedSet } });
     }
   }
 });
