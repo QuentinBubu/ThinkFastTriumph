@@ -11,9 +11,10 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/play',
+      path: '/play/:version/:set', // Définir le paramètre ':version' dans le chemin de la route
       name: 'play',
-      component: PlayView
+      component: PlayView,
+      props: true // Indiquer que les paramètres de la route doivent être traités comme des props
     }
   ]
 })
